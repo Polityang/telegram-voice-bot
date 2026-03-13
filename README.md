@@ -1,124 +1,66 @@
 # Telegram Voice Bot
 
-A Telegram bot that automatically recognizes voice messages using Whisper and responds with the transcribed text.
+支持语音识别和中文语音合成的 Telegram 机器人。
 
-## Features
+## 功能特性
 
-- 🎤 Voice message recognition
-- 🇨🇳 Chinese language support (default)
-- 🔄 Automatic response with transcribed text
-- ⚡ Fast inference using Whisper
+- 🎤 **语音识别** - 使用 OpenAI Whisper 自动识别语音消息
+- 🔊 **语音合成** - 使用 Microsoft Edge TTS 进行中文语音回复
+- 🇨🇳 **中文支持** - 默认支持中文语音识别和回复
 
-## Prerequisites
-
-- Python 3.8+
-- Telegram Bot Token (get from @BotFather)
-- OpenAI Whisper model (or use local installation)
-
-## Installation
+## 安装
 
 ```bash
-# Clone the repository
-git clone https://github.com/yourusername/telegram-voice-bot.git
+git clone https://github.com/Polityang/telegram-voice-bot.git
 cd telegram-voice-bot
-
-# Install dependencies
 pip install -r requirements.txt
-
-# Download Whisper model (optional - will download on first run)
-# The base model will be downloaded automatically
 ```
 
-## Configuration
+## 配置
 
-1. Get your Telegram Bot Token from [@BotFather](https://t.me/BotFather)
+1. 从 [@BotFather](https://t.me/BotFather) 获取 Telegram Bot Token
+2. 设置环境变量：
 
-2. Set environment variable:
 ```bash
-export TELEGRAM_BOT_TOKEN="your_bot_token_here"
+export TELEGRAM_BOT_TOKEN="your_token_here"
 ```
 
-Or create a `.env` file:
-```bash
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-```
-
-## Usage
+## 运行
 
 ```bash
-# Run the bot
 python bot.py
 ```
 
-The bot will:
-1. Start polling for new messages
-2. When a voice message is received, it will:
-   - Download the voice file
-   - Transcribe it using Whisper
-   - Send the transcribed text back to the user
+## 环境变量
 
-## Configuration Options
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| TELEGRAM_BOT_TOKEN | Telegram Bot Token | (必填) |
+| VOICE_REPLY | 是否使用语音回复 | true |
 
-### Change Language
+## Whisper 模型
 
-Edit `bot.py` to change the transcription language:
+可选模型（通过修改 `MODEL_NAME`）：
 
-```python
-result = model.transcribe(temp_path, language="zh")  # Chinese
-# or
-result = model.transcribe(temp_path, language="en")  # English
-```
+| 模型 | 大小 | 速度 |
+|------|------|------|
+| tiny | ~75MB | 最快 |
+| base | ~74MB | 快 |
+| small | ~244MB | 中等 |
+| medium | ~769MB | 慢 |
+| large | ~1550MB | 最慢 |
 
-### Use Different Whisper Model
+## 更新日志
 
-Edit `bot.py` to use a different model:
+### v2.0.0
+- 添加中文语音合成功能 (edge-tts)
+- 支持语音回复
+- 异步 TTS 处理
 
-```python
-model = whisper.load_model("base")  # Options: tiny, base, small, medium, large
-```
+### v1.0.0
+- 初始版本
+- 语音识别功能
 
-### Change Response Format
+## 许可证
 
-Edit the `send_message` function in `bot.py` to customize the.
-
-## Project Structure response format
-
-```
-telegram-voice-bot/
-├── bot.py              # Main bot script
-├── requirements.txt    # Python dependencies
-├── README.md          # This file
-└── .env.example       # Environment variables template
-```
-
-## Troubleshooting
-
-### Bot not receiving messages
-
-Make sure you've started the bot by sending `/start` command.
-
-### Whisper download taking too long
-
-Use a smaller model:
-```python
-model = whisper.load_model("tiny")  # Fastest, ~75MB
-```
-
-### Rate limiting
-
-Telegram has rate limits. The bot includes basic error handling but you may need to add delays for high-volume usage.
-
-## Security Notes
-
-- Never commit your Bot Token to version control
-- Add `.env` to your `.gitignore`
-- The bot only processes voice messages, not text messages
-- All voice processing is done locally
-
-## License
-
-MIT License
-
-## Contributing
-
-Pull requests are welcome!
+MIT

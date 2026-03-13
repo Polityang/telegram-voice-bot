@@ -1,36 +1,63 @@
 # Telegram Voice Bot Skill
 
-使用 Whisper 自动识别 Telegram 语音消息的技能。
+支持语音识别和中文语音合成的 Telegram 机器人技能。
 
 ## 功能
-- 🎤 自动识别语音消息
-- 🇨🇳 支持中文语音识别（默认）
-- ⚡ 使用 Whisper 本地识别，保护隐私
+
+- 🎤 **语音识别** - 使用 OpenAI Whisper 自动识别语音消息
+- 🔊 **语音合成** - 使用 Microsoft Edge TTS 进行中文语音回复
+- 🇨🇳 **中文支持** - 默认支持中文
 
 ## 依赖
+
 - Python 3.8+
 - openai-whisper
+- edge-tts
 - requests
 - Telegram Bot Token
 
-## 配置
-1. 从 @BotFather 获取 Telegram Bot Token
-2. 设置环境变量或直接在代码中配置
+## 安装
 
-## 使用方法
 ```bash
 pip install -r requirements.txt
-export TELEGRAM_BOT_TOKEN="your_token"
+```
+
+## 配置
+
+1. 从 @BotFather 获取 Telegram Bot Token
+2. 设置环境变量：
+   ```bash
+   export TELEGRAM_BOT_TOKEN="your_token"
+   ```
+
+## 使用方法
+
+```bash
 python bot.py
 ```
 
-## 模型选择
-支持多种 Whisper 模型：
-- tiny (最快，~75MB)
-- base (默认，~74MB)  
+## 环境变量
+
+| 变量 | 说明 | 默认值 |
+|------|------|--------|
+| TELEGRAM_BOT_TOKEN | Telegram Bot Token | (必填) |
+| VOICE_REPLY | 是否使用语音回复 | true |
+
+## Whisper 模型
+
+在代码中修改 `MODEL_NAME`：
+
+- tiny (最快, ~75MB)
+- base (默认, ~74MB)
 - small (~244MB)
 - medium (~769MB)
 - large (~1550MB)
 
+## 版本
+
+- v2.0.0 - 添加中文语音合成
+- v1.0.0 - 初始版本（仅语音识别）
+
 ## 许可证
-MIT-0
+
+MIT
